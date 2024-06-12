@@ -17,3 +17,5 @@ Remove existing tasks from the list.
   - A new Vue instance is created, bound to the #app element.
   - The data object contains newTodo for the new task input and todos for the list of tasks.
   - The methods object contains addTodo for adding tasks and removeTodo for removing tasks.
+
+To access the page go to https://laricaaciral.github.io/to-do-list-vue.js/
