@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <!-- importando CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #A9C9FF;
+            background-image: linear-gradient(180deg, #A9C9FF 0%, #FFBBEC 100%);
+            height: 100vh; 
+            margin: 0; 
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            background-color: #fafafa;
+        }
+        .title {
+          text-align: center;
+          margin-top: 10px;
+          margin-bottom: 30px;
+        }
+        .todo-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .todo-item span {
+            flex-grow: 1;
+        }
+        .todo-item button {
+            margin-left: 10px;
+            background-color: #ff4d4d;
+            border: none;
+            padding: 5px 10px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 1s;
+        }
+        .todo-item button:hover {
+            background-color: #c02a2a;
+        }
+        .add-todo {
+            display: flex;
+            margin-top: 20px;
+        }
+        .add-todo input {
+            flex-grow: 1;
+            padding: 10px;
+            margin-right: 10px;
+        }
+        .add-todo button {
+            padding: 10px;
+            background-color: #4fe554;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 1s;
+        }
+        .add-todo button:hover {
+            background-color: #1fb324;
+            
+        }
+    </style>
+</head>
+<body>
+  <!-- criando a instancia do vue onde serao executados os metodos por meio do id app -->
+    <div id="app" class="container">
+        <h1 class="title">To-Do List</h1>
+        <!-- v-for faz a iteração pelo array renderizando as atualizações feitas-->
+        <div class="todo-item" v-for="(todo, index) in todos" :key="index">
+          <!-- interpolação em Vue.js é feita pelo uso das chaves duplas-->
+            <span>{{ todo.text }}</span>
+            <!-- @click é uma diretiva reativo -->
+            <button @click="removeTodo(index)">Remover</button>
+        </div>
+        <div class="add-todo">
+          <!-- v-model diretiva bidirecional para manipulação de dados de forma reativa-->
+            <input type="text" v-model="newTodo" placeholder="Novo item">
+            <button @click="addTodo">Adicionar</button>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+          //iniciando a aplicação vue especificando a instancia que sera montada por meio do id
+          //cria o escopo de controle, onde o vue controla e onde funcionarão as diretivas
+            el: '#app',
+            data: {
+                newTodo: '',
+                todos: [
+                    { text: 'Aprender Vue.js' },
+                    { text: 'Criar uma aplicação simples' },
+                    { text: 'Fazer apresentação' }
+                ]
+            },
+            //verifica se o campo está vazio, caso negativo adiciona o texto inserido
+            //como novo item no array todos, em seguida "limpa" a caixa de texto
+            methods: {
+                addTodo() {
+                    if (this.newTodo.trim() !== '') {
+                        this.todos.push({ text: this.newTodo });
+                        this.newTodo = '';
+                    }
+                },
+                //remove 1 item do index selecionado
+                removeTodo(index) {
+                    this.todos.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
